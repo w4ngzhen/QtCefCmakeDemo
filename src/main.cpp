@@ -36,13 +36,21 @@ int init_qt_cef(int& argc, char** argv)
 
 int main(int argc, char* argv[])
 {
-    QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);  // 解决高DPI下，界面比例问题
-    QApplication a(argc, argv);
+    // 将init_qt_cef提取到QApplication初始化之前
+    // 对于CEF多进程架构模型
+    // 因为【渲染进程】启动后，init_qt_cef中执行的CefExecuteProcess会阻塞住，
+    // 如果在此之前启动了QT的事件循环，那么会导致QT出现异常
+    // 所以，我们将init_qt_cef提前到QApplication初始化之前，
+    // 保证无论是浏览器进程还是渲染进程启动，都会进入init_qt_cef，但渲染进程会在里面阻塞，
+    // 不会进入后续的QT应用初始化
     const int result = init_qt_cef(argc, argv);
     if (result >= 0)
     {
         return result;
     }
+
+    QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);  // 解决高DPI下，界面比例问题
+    QApplication a(argc, argv);
 
     QtCefWindow w;
     w.show();
