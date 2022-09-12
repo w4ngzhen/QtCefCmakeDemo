@@ -13,13 +13,13 @@ public:
 
     // CefApp methods:
     virtual CefRefPtr<CefBrowserProcessHandler> GetBrowserProcessHandler()
-    OVERRIDE
+    override
     {
         return this;
     }
 
     // CefBrowserProcessHandler methods:
-    virtual void OnContextInitialized() OVERRIDE;
+    virtual void OnContextInitialized() override;
 
 private:
     // Include the default reference counting implementation.
