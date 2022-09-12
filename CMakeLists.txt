@@ -9,6 +9,9 @@ SET(CMAKE_INCLUDE_CURRENT_DIR ON)
 # 解决warning C4819，需要在ADD_EXECUTABLE前加上
 ADD_COMPILE_OPTIONS("$<$<C_COMPILER_ID:MSVC>:/utf-8>")
 ADD_COMPILE_OPTIONS("$<$<CXX_COMPILER_ID:MSVC>:/utf-8>")
+# 控制项目所有编译单元_ITERATOR_DEBUG_LEVEL的值，
+# 这里设置为和libcef_dll_wrapper.lib中的obj一致。
+ADD_COMPILE_DEFINITIONS($<$<CONFIG:Debug>:_ITERATOR_DEBUG_LEVEL=0>)
 
 # 【QT】CMAKE_PREFIX_PATH 实际值为本地安装的QT中的对应编译环境的目录
 SET(CMAKE_PREFIX_PATH "D:\\Programs\\Qt\\Qt5.14.2\\5.14.2\\msvc2017_64")
