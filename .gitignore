@@ -4,6 +4,7 @@
 .vs/
 CefFiles/
 QtCefDemo/GPUCache/
+cmake-build-*/
 
 # User-specific files
 *.suo
