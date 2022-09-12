@@ -12,7 +12,7 @@ QtCefWindow::QtCefWindow(QWidget* parent)
 
     // 以下是将 SimpleHandler 与窗体进行关联的代码
     CefWindowInfo cef_wnd_info;
-    QString str_url = "https://www.cnblogs.com/w4ngzhen";
+    std::string str_url = "https://www.cnblogs.com/w4ngzhen";
     QRect rect = this->geometry();
     CefRect win_rect(
             rect.left(),
@@ -25,7 +25,7 @@ QtCefWindow::QtCefWindow(QWidget* parent)
     simple_handler_ = CefRefPtr<SimpleHandler>(new SimpleHandler());
     CefBrowserHost::CreateBrowser(cef_wnd_info,
         simple_handler_,
-        str_url.toStdString(),
+        str_url,
         cef_browser_settings,
         nullptr,
         CefRequestContext::GetGlobalContext());
